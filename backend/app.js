@@ -152,6 +152,24 @@ app.post('/faculty-booking', (req, res) => {
 });
 
 
+app.get('/faculty-bookings/:userid', (req, res) => {
+  const userid = req.params.userid;
+  con.query(
+    "SELECT * FROM faculty_booking WHERE userid = ?",
+    [userid],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send({ status: "error", message: "Failed to fetch data" });
+      }
+      res.send(result);
+    }
+  );
+});
+
+
+
+
 app.get('/faculty-bookings', (req, res) => {
   con.query("SELECT * FROM faculty_booking WHERE status = 'Pending'", (err, result) => {
     if (err) {

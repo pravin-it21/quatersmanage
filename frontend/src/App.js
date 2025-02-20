@@ -28,7 +28,7 @@ class App extends Component {
       <Router>
         <div>
           <Route exact path='/' component={Home} />
-<Route path='/register' component={Register} />
+          <Route path='/register' component={Register} />
 
           <Route path='/login' render={props => <Login user={this.state.user} />} />
           <Route path='/contact' component={Contact} />

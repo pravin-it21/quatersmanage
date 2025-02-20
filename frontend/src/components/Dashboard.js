@@ -48,9 +48,12 @@ function Dashboard(props) {
             <QuartersBooking user={props.user} />
           </Route>
 
-          <Route path="/dashboard/manage-booking">
-            {role === "admin" ? <AdminManageBookings /> : <ManageBooking />}
-          </Route>
+         <Route path="/dashboard/manage-booking">
+  {role === "admin" ? <AdminManageBookings /> : <ManageBooking user={props.user} />}
+</Route>
+
+
+         
 
           <Route exact path="/dashboard/event/myevents">
             <MyEvents user={props.user} />

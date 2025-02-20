@@ -6,7 +6,7 @@ const AdminManageBookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    // Fetch bookings
+    // Fetch all booking requests
     axios
       .get("http://localhost:8082/faculty-bookings")
       .then((response) => {
@@ -21,12 +21,18 @@ const AdminManageBookings = () => {
       .post("http://localhost:8082/faculty-booking/approve", {
         bookingId,
         status,
-        assignedQuarter: "BHK 2BHK", // Example value for assigned quarter
-        adminComments: "Approved by Admin", // Example comment
+        assignedQuarter: status === "Approved" ? "BHK 2BHK" : "", // Example quarter
+        adminComments: status === "Approved" ? "Approved by Admin" : "Rejected by Admin",
       })
       .then((response) => {
         if (response.data.status === "success") {
           alert("Booking status updated successfully!");
+          
+          // Refresh booking list after status update
+          axios
+            .get("http://localhost:8082/faculty-bookings")
+            .then((res) => setBookings(res.data))
+            .catch((error) => console.error("Error refreshing bookings:", error));
         }
       })
       .catch((error) => console.error("Error approving booking:", error));
@@ -43,21 +49,24 @@ const AdminManageBookings = () => {
             <div className="booking-card" key={booking.bookingId}>
               <h4>Booking ID: {booking.bookingId}</h4>
               <p><strong>Faculty Name:</strong> {booking.faculty_name}</p>
-              <p><strong>Request:</strong> {booking.request}</p>
-              <div className="buttons">
-                <button
-                  className="btn btn-success"
-                  onClick={() => handleApproval(booking.bookingId, "Approved")}
-                >
-                  Approve
-                </button>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => handleApproval(booking.bookingId, "Rejected")}
-                >
-                  Reject
-                </button>
-              </div>
+              <p><strong>Request:</strong> {booking.request_details}</p>
+              <p><strong>Status:</strong> {booking.status}</p>
+              {booking.status === "Pending" && (
+                <div className="buttons">
+                  <button
+                    className="btn btn-success"
+                    onClick={() => handleApproval(booking.bookingId, "Approved")}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleApproval(booking.bookingId, "Rejected")}
+                  >
+                    Reject
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
