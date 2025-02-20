@@ -1,75 +1,151 @@
+/* ManageBooking.css */
+
+/* Container styling */
 .manage-booking-container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .heading {
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 30px;
-    color: #333;
-  }
-  
-  .booking-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .booking-card {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #007bff;
-  }
-  
-  .booking-card h4 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .booking-card p {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-  
-  .booking-card .buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .btn {
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-success {
-    background-color: #28a745;
-    color: white;
-    border: none;
-  }
-  
-  .btn-success:hover {
-    background-color: #218838;
-  }
-  
-  .btn-danger {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-  }
-  
-  .btn-danger:hover {
-    background-color: #c82333;
-  }
-  
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading style */
+.heading {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #4a148c; /* Deep purple */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Booking list styling */
+.booking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+
+.booking-card {
+  background-color: #fff; /* Keep inside white */
+  padding: 20px 25px;
+  border-radius: 10px;
+  border-left: 6px solid #82b1ff; /* Light blue border outside */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.booking-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+
+
+.booking-card h4 {
+  font-size: 1.7rem;
+  margin-bottom: 12px;
+  color: #4a148c;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+
+.booking-card p {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Button container */
+.booking-card .buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* Button styles */
+.btn {
+  padding: 10px 25px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+
+.btn:hover {
+  transform: scale(1.03);
+}
+
+.btn-success {
+  background-color: #2e7d32;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #27632a;
+}
+
+.btn-danger {
+  background-color: #c62828;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #a51d1d;
+}
+
+/* Form styling */
+.manage-booking-form {
+  margin-bottom: 40px;
+  background-color: #ffffff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.manage-booking-form .form-group {
+  margin-bottom: 20px;
+}
+
+.manage-booking-form label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+  color: #4a148c;
+  font-size: 1.1rem;
+}
+
+.manage-booking-form .form-control {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.manage-booking-form .form-control:focus {
+  border-color: #4a148c;
+  outline: none;
+}
+
+/* Admin Comment Section (for admin manage page) */
+.admin-comment label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+  color: #4a148c;
+  font-size: 1.1rem;
+}
+
+.admin-comment .form-control {
+  margin-bottom: 10px;
+  border: 1px solid #4a148c;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 1rem;
+}
