@@ -86,7 +86,7 @@ function ManageBooking(props) {
               <p><strong>Request:</strong> {booking.request}</p>
               <p><strong>Status:</strong> {booking.status}</p>
               {booking.status === "Approved" && (
-                <p><strong>Assigned Quarter:</strong> {booking.assignedQuarter}</p>
+                <p><strong>Assigned Quarter:</strong> {booking.assigned_quarter}</p>
               )}
             </div>
           ))

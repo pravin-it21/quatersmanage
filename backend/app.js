@@ -170,6 +170,7 @@ app.get('/faculty-bookings/:userid', (req, res) => {
 
 
 
+
 app.get('/faculty-bookings', (req, res) => {
   con.query("SELECT * FROM faculty_booking WHERE status = 'Pending'", (err, result) => {
     if (err) {
@@ -181,16 +182,45 @@ app.get('/faculty-bookings', (req, res) => {
 });
 
 
+// app.post('/faculty-booking/approve', (req, res) => {
+//   const { bookingId, status, assignedQuarter, adminComments } = req.body;
+
+//   con.query(
+//     "UPDATE faculty_booking SET status = ?, assigned_quarter = ?, admin_comments = ? WHERE booking_id = ?",
+//     [status, assignedQuarter, adminComments, bookingId],
+//     (err, result) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).send({ status: "error", message: "Failed to update booking" });
+//       }
+//       res.send({ status: "success", message: "Booking status updated successfully!" });
+//     }
+//   );
+// });
+
 app.post('/faculty-booking/approve', (req, res) => {
   const { bookingId, status, assignedQuarter, adminComments } = req.body;
+  
+  console.log("Received approval data:", req.body);
 
+  // Ensure bookingId exists
+  if (!bookingId) {
+    return res.status(400).send({ status: "error", message: "Missing bookingId" });
+  }
+
+  // Run the update query
   con.query(
-    "UPDATE faculty_booking SET status = ?, assigned_quarter = ?, admin_comments = ? WHERE id = ?",
+    "UPDATE faculty_booking SET status = ?, assigned_quarter = ?, admin_comments = ? WHERE booking_id = ?",
     [status, assignedQuarter, adminComments, bookingId],
     (err, result) => {
       if (err) {
-        console.error(err);
+        console.error("Error updating booking:", err);
         return res.status(500).send({ status: "error", message: "Failed to update booking" });
+      }
+      // Log the result of the query
+      console.log("Update result:", result);
+      if (result.affectedRows === 0) {
+        return res.status(404).send({ status: "error", message: "No booking found with the given ID" });
       }
       res.send({ status: "success", message: "Booking status updated successfully!" });
     }

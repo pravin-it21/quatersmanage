@@ -18,15 +18,19 @@ function QuartersBooking(props) {
   const [emailId, setEmailId] = useState("");
   const [request, setRequest] = useState("");
 
-  // Check if a booking request already exists for this user
+  // When component mounts, check if a non-rejected booking request exists for this user
   useEffect(() => {
     async function checkBooking() {
       try {
         const response = await fetch(`http://localhost:8082/faculty-bookings/${props.user.userid}`);
         const data = await response.json();
         console.log("API Call Success: Bookings Data:", data);
-        // If any booking exists, redirect to ManageBooking page
-        if (data.length > 0) {
+        // Look for any booking that is not rejected
+        const activeBooking = data.find(
+          (b) => b.status === "Pending" || b.status === "Approved"
+        );
+        if (activeBooking) {
+          // If an active booking exists, redirect to ManageBooking page
           history.push("/dashboard/manage-booking");
         } else {
           setLoading(false);
@@ -47,7 +51,6 @@ function QuartersBooking(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create payload with all form fields
     const payload = {
       userid: props.user.userid,
       faculty_name: facultyName,
@@ -68,6 +71,7 @@ function QuartersBooking(props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
       const data = await response.json();
       if (data.status === "success") {
         alert("Booking request submitted successfully!");
@@ -102,6 +106,7 @@ function QuartersBooking(props) {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Faculty ID</label>
             <input
@@ -113,6 +118,7 @@ function QuartersBooking(props) {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Department</label>
             <input
@@ -124,6 +130,7 @@ function QuartersBooking(props) {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Faculty Level</label>
             <select
@@ -140,6 +147,7 @@ function QuartersBooking(props) {
               <option value="HOD">HOD</option>
             </select>
           </div>
+
           <div className="form-group">
             <label>Years at BIT</label>
             <input
@@ -151,6 +159,7 @@ function QuartersBooking(props) {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Family Members</label>
             <input
@@ -162,6 +171,7 @@ function QuartersBooking(props) {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Quarters Type</label>
             <select
@@ -175,6 +185,7 @@ function QuartersBooking(props) {
               <option value="2BHK">2BHK</option>
             </select>
           </div>
+
           <div className="form-group">
             <label>Contact No</label>
             <input
@@ -186,6 +197,7 @@ function QuartersBooking(props) {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Email ID</label>
             <input
@@ -197,6 +209,7 @@ function QuartersBooking(props) {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Reason for Booking</label>
             <textarea
@@ -207,6 +220,7 @@ function QuartersBooking(props) {
               required
             />
           </div>
+
           <br />
           <button type="submit" className="btn btn-primary btn-lg btn-block">
             Submit Request
